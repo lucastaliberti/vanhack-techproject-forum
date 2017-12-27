@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { Panel } from 'react-bootstrap'
+import { dataFetch } from './actions'
 
-const title = <h3>Panel title</h3>
+import DiscussionPanel from '../components/DiscussionPanel'
 
-const Discussion = () => <Panel header={title}>Panel content</Panel>
+class Discussion extends Component {
+  componentDidMount() {
+    const { dataFetch } = this.props
+    dataFetch()
+  }
 
-export default Discussion
+  render() {
+    const { grouped } = this.props
+    console.log(grouped)
+    return (
+      grouped.length > 0 &&
+      grouped.map((v, i) => (
+        <DiscussionPanel key={i} title={v.title}>
+          {v.replies}
+        </DiscussionPanel>
+      ))
+    )
+  }
+}
+
+const mapStateToProps = state => ({ grouped: state.discussion.grouped })
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ dataFetch }, dispatch)
+
+export { Discussion }
+export default connect(mapStateToProps, mapDispatchToProps)(Discussion)
