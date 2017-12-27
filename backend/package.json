@@ -1,0 +1,33 @@
+{
+  "name": "vanhack-techproject-forum-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lucastaliberti/vanhack-techproject-forum.git",
+  "author":
+    "Lucas Taliberti <lucastaliberti@syllus.com.br> (https://github.com/lucastaliberti)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon",
+    "prod": "pm2 start --name vanhack-techproject-forum-backend",
+    "monit": "pm2 monit",
+    "lint": "prettier --write 'src/**/*.{js,jsx,json,css}'"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-query-int": "^2.0.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.13.7",
+    "mongoose-paginate": "^5.0.3",
+    "node-restful": "^0.2.6",
+    "pm2": "^2.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.7",
+    "prettier": "^1.9.2"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}
