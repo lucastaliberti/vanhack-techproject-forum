@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon",
-    "prod": "pm2 start --name vanhack-techproject-forum-backend",
+    "prod": "pm2 start index.js --name vanhack-techproject-forum-backend",
     "monit": "pm2 monit",
     "lint": "prettier --write 'src/**/*.{js,jsx,json,css}'"
   },
