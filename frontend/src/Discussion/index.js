@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import moment from 'moment'
+import { Label } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 import { dataFetch } from './actions'
 
@@ -14,12 +17,21 @@ class Discussion extends Component {
 
   render() {
     const { grouped } = this.props
-    console.log(grouped)
     return (
       grouped.length > 0 &&
       grouped.map((v, i) => (
         <DiscussionPanel key={i} title={v.title}>
-          {v.replies}
+          <p className="pull-left">
+            <FontAwesome name="user-circle" size="2x" />
+            <span className="pull-right">
+              &nbsp;By <b>{v.author}</b> on{' '}
+              {moment(v.createdAt).format('DD/MM/YYYY')}
+            </span>
+          </p>
+
+          <p className="pull-right">
+            Total replies: <Label>{v.replies}</Label>
+          </p>
         </DiscussionPanel>
       ))
     )
