@@ -1,27 +1,5 @@
 const mongoose = require('mongoose')
 
-const defaultErrorHandler = (res, error) => {
-  res.status(500).json({
-    errors: [error]
-  })
-}
-
-const defaultResultHandler = (res, value) => {
-  res.json({ value })
-}
-
-const aggregateResultHandler = defaultValue => (res, value) => {
-  res.json(value || defaultValue)
-}
-
-const makeCallBackHandler = (req, res, next) => (
-  errorHandler,
-  resultHandler
-) => (error, value) => {
-  if (error) errorHandler(res, error)
-  else resultHandler(res, value)
-}
-
 const summaryMatchId = id => ({
   $match: { _id: mongoose.Types.ObjectId(id) }
 })
@@ -51,11 +29,6 @@ const summaryGroupBy = () => ({
 })
 
 module.exports = {
-  defaultErrorHandler,
-  defaultResultHandler,
-  aggregateResultHandler,
-  makeCallBackHandler,
-
   summaryMatchId,
   summaryProjectValues,
   summaryUnwind,
