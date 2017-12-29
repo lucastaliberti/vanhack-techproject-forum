@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const jwt = require('jsonwebtoken')
 
 const defaultErrorHandler = (res, error) => {
   res.status(500).json({
@@ -38,6 +39,33 @@ const loginRequired = (req, res, next) => {
   else return res.status(401).json({ message: 'Unauthorized user!' })
 }
 
+const checkAuthorizationHeader = (req, res, next) => {
+  req.user = undefined
+
+  const splitAuthorizationHeader = AuthorizationHeader => {
+    const splitedHeader = AuthorizationHeader.split(' ')
+    return {
+      type: splitedHeader[0],
+      payload: splitedHeader[1]
+    }
+  }
+
+  const hasJwtAuthorizationHeader = headers => headers && headers.authorization
+
+  const buildPayloadToCheck = headers => {
+    if (hasJwtAuthorizationHeader(headers))
+      return splitAuthorizationHeader(headers.authorization)
+    else return { type: '', payload: '' }
+  }
+
+  const payloadToCheck = buildPayloadToCheck(req.headers)
+
+  if (payloadToCheck.type === 'JWT')
+    req.user = jwt.verify(payloadToCheck.payload, 'RESTFULAPIs')
+
+  next()
+}
+
 module.exports = {
   errorHandler,
   defaultErrorHandler,
@@ -46,5 +74,6 @@ module.exports = {
 
   makeCallBackHandler,
 
+  checkAuthorizationHeader,
   loginRequired
 }
