@@ -52,11 +52,10 @@ const checkAuthorizationHeader = (req, res, next) => {
 
   const hasJwtAuthorizationHeader = headers => headers && headers.authorization
 
-  const buildPayloadToCheck = headers => {
-    if (hasJwtAuthorizationHeader(headers))
-      return splitAuthorizationHeader(headers.authorization)
-    else return { type: '', payload: '' }
-  }
+  const buildPayloadToCheck = headers =>
+    hasJwtAuthorizationHeader(headers)
+      ? splitAuthorizationHeader(headers.authorization)
+      : { type: '', payload: '' }
 
   const payloadToCheck = buildPayloadToCheck(req.headers)
 
