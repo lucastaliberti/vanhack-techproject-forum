@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
 const renderComponentIfLogged = (Component, login) => props =>
-  login && login.token ? (
+  login.logged && login.logged.token ? (
     <Component {...props} />
   ) : (
     <Redirect

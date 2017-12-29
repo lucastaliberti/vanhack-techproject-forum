@@ -3,13 +3,15 @@ import { Route, Switch } from 'react-router-dom'
 
 import PrivateRoute from '../components/PrivateRoute'
 
-import Login from '../Login'
+import RegisterForm from '../Login/RegisterForm'
+import LoginForm from '../Login/LoginForm'
 import Discussion from '../Discussion'
 
 const Routes = props => (
   <Switch>
     <PrivateRoute path="/discussion" component={Discussion} />
-    <Route component={Login} />
+    <Route path="/register" component={RegisterForm} />
+    <Route component={LoginForm} />
   </Switch>
 )
 
