@@ -4,7 +4,8 @@ const {
   defaultErrorHandler,
   defaultResultHandler,
   aggregateResultHandler,
-  makeCallBackHandler
+  makeCallBackHandler,
+  loginRequired
 } = require('../common/handlers')
 const {
   summaryMatchId,
@@ -18,7 +19,6 @@ forum.updateOptions({
   new: true,
   runValidators: true
 })
-forum.after('post', errorHandler).after('put', errorHandler)
 
 const summaryDefaultValue = () => ({
   _id: '',
@@ -43,7 +43,15 @@ const makeSummaryHandler = detail => (req, res, next) => {
   forum.aggregate(finalPipeLine, summaryCallBackHandler)
 }
 
-forum.route('grouped', makeSummaryHandler(false))
-forum.route('summary', { detail: true, handler: makeSummaryHandler(true) })
+forum.route('grouped.get', makeSummaryHandler(false))
+forum.route('summary.get', { detail: true, handler: makeSummaryHandler(true) })
+
+forum
+  .before('get', loginRequired)
+  .before('post', loginRequired)
+  .after('post', errorHandler)
+  .before('put', loginRequired)
+  .after('put', errorHandler)
+  .before('delete', loginRequired)
 
 module.exports = forum
