@@ -30,7 +30,7 @@ const checkValidUser = (req, res) => user => {
     res.json({
       token: jwt.sign(
         { email: user.email, name: user.name, _id: user._id },
-        'RESTFULAPIs'
+        process.env.JWT_SECRET
       )
     })
 }

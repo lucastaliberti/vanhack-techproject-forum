@@ -60,8 +60,15 @@ const checkAuthorizationHeader = (req, res, next) => {
 
   const payloadToCheck = buildPayloadToCheck(req.headers)
 
-  if (payloadToCheck.type === 'JWT')
-    req.user = jwt.verify(payloadToCheck.payload, 'RESTFULAPIs')
+  if (payloadToCheck.type === 'JWT') {
+    jwt.verify(
+      payloadToCheck.payload,
+      process.env.JWT_SECRET,
+      (err, decode) => {
+        req.user = decode
+      }
+    )
+  }
 
   next()
 }
