@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:lucastaliberti/vanhack-techproject-forum.git",
-  "author":
-    "Lucas Taliberti <lucastaliberti@syllus.com.br> (https://github.com/lucastaliberti)",
+  "author": "Lucas Taliberti <lucastaliberti@syllus.com.br> (https://github.com/lucastaliberti)",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon",
@@ -13,9 +12,12 @@
     "lint": "prettier --write 'src/**/*.{js,jsx,json,css}'"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-query-int": "^2.0.0",
+    "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.13.7",
     "mongoose-paginate": "^5.0.3",
