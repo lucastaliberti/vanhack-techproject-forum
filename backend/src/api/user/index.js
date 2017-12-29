@@ -23,6 +23,6 @@ user
   .after('post', errorHandler)
   .after('put', errorHandler)
 
-user.route('signin.get', signIn(user))
+user.route('signin.post', signIn(user))
 
 module.exports = user
